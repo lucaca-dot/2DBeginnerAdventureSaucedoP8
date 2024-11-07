@@ -18,11 +18,15 @@ public class DuckoControler : MonoBehaviour
     float horizontal;
     float vertical;
 
+    Animator animator;
+    Vector2 lookDirection = new Vector2(1, 2);
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
         
     }
 
