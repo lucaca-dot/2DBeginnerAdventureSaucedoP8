@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
             timer = changeTime;
         }
     }
-    private void FixedUpdate()
+     void FixedUpdate()
     {
         Vector2 position = rigidbody2d.position;
         if (vertical)

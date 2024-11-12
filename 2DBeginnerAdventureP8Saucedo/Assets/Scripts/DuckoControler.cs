@@ -7,7 +7,10 @@ public class DuckoControler : MonoBehaviour
 {
     public float speed = 5.0f;
     public int maxHealth = 5;
-    public float timeInvincible = 2;
+
+    public GameObject projectilePrefab;
+
+    public float timeInvincible = 2.0f;
 
     bool isInvincible;
     float invincibleTimer;
@@ -36,6 +39,17 @@ public class DuckoControler : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
+        Vector2 move = new Vector2(horizontal, vertical);
+
+        if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+        {
+            lookDirection.Set(move.x, move.y);
+            lookDirection.Normalize();
+        }
+        animator.SetFloat("Look X", lookDirection.x);
+        animator.SetFloat("Look Y", lookDirection.y);
+        animator.SetFloat("Speed", move.magnitude);
+
         if(isInvincible)
         {
             invincibleTimer -= Time.deltaTime;
@@ -43,6 +57,10 @@ public class DuckoControler : MonoBehaviour
             {
                 isInvincible = false;
             }
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            Launch();
         }
 
     }
@@ -58,6 +76,8 @@ public class DuckoControler : MonoBehaviour
     {
         if(amount < 0)
         {
+            animator.SetTrigger("Hit");
+
             if(isInvincible)
             {
                 return;
@@ -67,5 +87,15 @@ public class DuckoControler : MonoBehaviour
         }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log(currentHealth + "/" + maxHealth);
+    }
+
+    void Launch()
+    {
+        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Launch(lookDirection, 300);
+
+        animator.SetTrigger("Launch");
     }
 }
