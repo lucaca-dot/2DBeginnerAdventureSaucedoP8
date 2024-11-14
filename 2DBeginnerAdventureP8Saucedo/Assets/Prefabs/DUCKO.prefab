@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 945917278687499619}
   - component: {fileID: 170357609003796928}
   - component: {fileID: 1247608299594138656}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DUCKO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
