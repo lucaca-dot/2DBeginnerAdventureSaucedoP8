@@ -86,7 +86,7 @@ public class DuckoControler : MonoBehaviour
             invincibleTimer = timeInvincible;
         }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        Debug.Log(currentHealth + "/" + maxHealth);
+        UIHealthBar.instance.setValue(currentHealth/(float)maxHealth);
     }
 
     void Launch()
